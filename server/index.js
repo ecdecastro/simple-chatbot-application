@@ -3,8 +3,11 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/users");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 
 const PORT = process.env.PORT || 8080;
+
+dotenv.config({ path: "./.env" });
 
 const app = express();
 
@@ -17,11 +20,12 @@ app.get("/", (req, res) => {
   res.send("Welcome to CHATAPP");
 });
 
-CONNECTION_URL =
-  "mongodb+srv://ecdecastro:123465@cluster0.xh6kwhv.mongodb.net/chatbot?retryWrites=true&w=majority";
+// CONNECTION_URL =
+//   "mongodb+srv://ecdecastro:123465@cluster0.xh6kwhv.mongodb.net/chatbot?retryWrites=true&w=majority";
+
 mongoose.set("strictQuery", true);
 mongoose
-  .connect(CONNECTION_URL)
+  .connect(process.env.CONNECTION_URL)
   .then(console.log(" Connectionto database has been successful"))
   .catch((err) => {
     console.error("Error connecting to MongoDB database", err);
